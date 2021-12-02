@@ -1,0 +1,73 @@
+﻿@{
+    var selectItems = new List<SelectListItem>()
+{
+        new SelectListItem()
+        {
+            Value = "",
+            Text = "Выберите значение",
+            Selected = true,
+            Disabled = true
+        }
+    };
+
+    selectItems = selectItems.Union(ViewBag.FileTypes as SelectList).ToList();
+
+    string extensions = String.Join(',', ViewBag.FileExtensions as IEnumerable<string>);
+
+    // Например, "/document/load"
+    var requestPath = Context.Request.Path.ToString().ToLower();
+}
+
+@{
+    ViewData["Title"] = ViewBag.Title;
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<form method="post" enctype="multipart/form-data" id="loadForm">
+    <div class="input-group mb-3 mt-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupType">Тип</label>
+        </div>
+        <select class="custom-select" id="inputGroupType" name="type"
+                asp-items="@selectItems" required>
+        </select>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Файлы</span>
+        </div>
+
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" name="files" id="files"
+                   multiple="multiple" required
+                   accept="@extensions" />
+            <label class="custom-file-label" for="files" id="filesLabel">
+                Выберите файлы для загрузки
+            </label>
+        </div>
+    </div>
+
+    @if (requestPath.Split('/')[1] == "document")
+    {
+        <label id="needValidateFilesSize" hidden>true</label>
+
+        <partial name="RegNumberControl" />
+    }
+
+    <div class="text-right mb-3">
+        <button type="submit" class="btn btn-primary btn-dark" id="loadButton">
+            Загрузить
+            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+        </button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-outline-dark">
+            Отменить
+        </a>
+    </div>
+</form>
+
+@section Scripts
+{
+    <script src="~/Scripts/js/FilesLoadHelper.js"></script>
+}

@@ -1,0 +1,16 @@
+﻿@model Exception
+
+@{
+    ViewBag.Title = "Страница ошибки";
+}
+
+<h3>Нам очень жаль :'(</h3>
+
+<p class="alert-warning">@Model.Message</p>
+<p class="alert-warning">@Model.InnerException?.Message</p>
+
+<p>@ViewBag.Path</p>
+
+<p>Дополнительная информация:</p>
+<p class="font-italic">@Model.StackTrace</p>
+<p class="font-italic">@Model.InnerException?.StackTrace</p>

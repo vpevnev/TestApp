@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PayerDocumentViewModel>
+
+<form id="filterForm">
+    <div class="form-inline">
+        <div class="input-group mb-3 mr-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="regNumber-addon">Рег. номер</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Введите для поиска" id="regNumber" name="regNumber" aria-describedby="regNumber-addon"
+                   value="@ViewBag.RegNumber" />
+        </div>
+
+        <div class="text-left mb-3">
+            <button type="submit" class="btn btn-primary btn-dark" id="applyFilterButton">
+                Применить
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+</form>
+
+<table id="payerDocumentTable" class="table table-hover table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.DocumentType)</th>
+            <th>@Html.DisplayNameFor(m => m.ClientDocumentName)</th>
+            <th>@Html.DisplayNameFor(m => m.FileEntity.FileName)</th>
+            <th>@Html.DisplayNameFor(m => m.FileEntity.LoadTime)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PayerDocumentViewModel payerDocument in Model)
+        {
+            <tr>
+                <td>@payerDocument.DocumentType.ShortName</td>
+                <td>
+                    @(payerDocument.ClientDocumentName
+                        ?? payerDocument.FileEntity.FileName)
+                </td>
+                <td>@payerDocument.FileEntity.FileName</td>
+                <td>@payerDocument.FileEntity.LoadTime</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-success"
+                       asp-controller="Download" asp-action="DownloadFileFromDb" 
+                       asp-route-id="@payerDocument.FileEntityId">
+                        Скачать
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

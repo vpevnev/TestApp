@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "defaultDestination": "wwwroot/lib",
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@4.3.1",
+      "destination": "wwwroot/lib/twitter-bootstrap/"
+    },
+    {
+      "library": "bootstrap4-toggle@3.6.1",
+      "destination": "wwwroot/lib/bootstrap4-toggle/"
+    },
+    //{
+    //  "library": "popper.js@2.6.0",
+    //  "destination": "wwwroot/lib/popper"
+    //},
+    {
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/lib/jquery"
+    },
+    //{
+    //  "library": "jquery-ajax-unobtrusive@3.2.6",
+    //  "destination": "wwwroot/lib/jquery/ajax"
+    //},
+    {
+      "library": "jquery.maskedinput@1.4.1",
+      "destination": "wwwroot/lib/jquery"
+    },
+    {
+      "library": "datatables.net@1.11.3",
+      "destination": "wwwroot/lib/jquery/datatables"
+    },
+    {
+      "library": "datatables.net-bs4@1.11.3",
+      "destination": "wwwroot/lib/jquery/datatables"
+    }
+  ]
+}

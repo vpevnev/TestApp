@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet"
+          asp-href-include="/lib/twitter-bootstrap/**/*.min.css"
+          asp-href-exclude="**/*-reboot*,**/*-grid*" />
+    <link rel="stylesheet"
+          asp-href-include="/lib/jquery/**/*.min.css"
+          asp-href-exclude="**/*-reboot*,**/*-grid*" />
+    <link rel="stylesheet"
+          asp-href-include="/lib/bootstrap4-toggle/*.min.css"
+          asp-href-exclude="**/*-reboot*,**/*-grid*" />
+    <link rel="shortcut icon" href="~/Images/favicon.ico" type="image/x-icon">
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery.maskedinput.min.js"></script>
+    @*<script src="~/lib/jquery/ajax/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/lib/popper/umd/popper.min.js"></script>*@
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap4-toggle/bootstrap4-toggle.min.js"></script>
+    <script src="~/lib/jquery/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/jquery/datatables/dataTables.bootstrap4.min.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    @* Всплывающее сообщение *@
+    <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+            <div class="toast-header">
+                <strong class="mr-auto">Сообщение</strong>
+                <small>сейчас</small>
+            </div>
+            <div class="toast-body">
+                Изменения внесены.
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index" title="На главную страницу">
+            <img src="~/Images/main_logo.png" width="30" height="30" class="d-inline-block align-top">
+            ПО
+        </a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="actionsNavbar" data-toggle="dropdown">Действия</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-controller="Document" asp-action="Load">Импорт документов</a>
+                    <a class="dropdown-item disabled" href="#">Действие 1</a>
+                    <a class="dropdown-item disabled" href="#">Действие 2</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="journalsNavbar" data-toggle="dropdown">Журналы</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-controller="Document" asp-action="Payer">Документы страхователя</a>
+                    <a class="dropdown-item disabled" href="#">Журнал списков</a>
+                    <a class="dropdown-item disabled" href="#">Список ИП</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="referencesNavbar" data-toggle="dropdown">Справочники</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item disabled" href="#">Справочник 1</a>
+                    <a class="dropdown-item disabled" href="#">Справочник 2</a>
+                    <a class="dropdown-item disabled" href="#">Справочник 3</a>
+                    <a class="dropdown-item disabled" href="#">Справочник 4</a>
+                    <a class="dropdown-item disabled" href="#">Справочник 5</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item disabled" href="#">Коды районов</a>
+                    <a class="dropdown-item disabled" href="#">Справочник 6</a>
+                </div>
+            </li>
+        </ul>
+        <div class="navbar-text text-right p-0">
+            <span class="m-0 d-block mb-n2">
+                Имя пользователя @*@User.Identity.Name*@
+            </span>
+            <span class="small">
+                Идентификатор @*@User.FindFirst(ClaimTypes.NameIdentifier).Value*@
+            </span>
+        </div>
+        <a class="navbar-nav" asp-controller="Account" asp-action="Logout" title="Выход">
+            <img src="~/Images/logout.png" width="30" height="40" class="d-inline-block align-top" alt="Выход">
+        </a>
+    </div>
+    <div class="row m-1 p-1">
+        <div class="col-12">
+            @RenderBody()
+
+            <script>
+                $('#previousButton').click(function () {
+                    window.history.back();
+                });
+
+                $('#regNumber').mask("999-999-9?99999", { placeholder: "032-0__-______" });
+
+                $(document).ready(function () {
+                    dataTableRender();
+                });
+
+                function dataTableRender() {
+                    $('.table').DataTable({
+                        language: {
+                            url: '/Localisation/dataTables_ru.json'
+                        },
+                        order: []
+                    });
+                };
+            </script>
+
+            @RenderSection("Scripts", false)
+        </div>
+    </div>
+</body>
+</html>

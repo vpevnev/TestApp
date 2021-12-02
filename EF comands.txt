@@ -1,0 +1,36 @@
+0. 
+Установка EF
+dotnet tool install --global dotnet-ef
+
+Обновление
+dotnet tool update --global dotnet-ef --version 5.0.5
+
+Проверка установки
+dotnet ef
+
+1. Удаление БД. Подумай
+dotnet ef database drop --force --context ApplicationDbContext
+
+2. Создание миграции
+dotnet ef migrations add <имя_миграции> --context ApplicationDbContext
+
+3. Миграция для другого проекта. Наш случай
+   Запускать в папке TestApp.Domain
+dotnet ef migrations add <имя_миграции> --output-dir ../TestApp.Domain/Data/Migrations --startup-project ../TestApp.WebUI --verbose --context ApplicationDbContext
+
+4. Запуск проекта
+dotnet run
+
+5. Сборка проекта
+dotnet build
+
+6. Применение миграций
+   Выполнять на главном проекте - TestApp.WebUI
+dotnet ef database update --context ApplicationDbContext
+
+7. Удаление ПОСЛЕДНЕЙ миграции
+   Выполнять на главном проекте - TestApp.WebUI
+dotnet ef migrations remove --context ApplicationDbContext --project ../TestApp.Domain
+
+8. Удаление ВСЕХ миграций
+dotnet ef database update 0 --context ApplicationDbContext

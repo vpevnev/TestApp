@@ -1,0 +1,5 @@
+Туториал по CsvHelper
+https://joshclose.github.io/CsvHelper/examples/
+
+Туториал по ExcelMapper
+https://github.com/hughbe/excel-mapper

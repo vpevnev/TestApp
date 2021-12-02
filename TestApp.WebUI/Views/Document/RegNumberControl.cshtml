@@ -1,0 +1,39 @@
+﻿<div class="form-inline">
+    <div class="text-left mb-3 mr-2">
+        <div class="form-check form-sw">
+            <input type="checkbox" checked data-toggle="toggle"
+                   id="toggleRegNumber" name="useRegNumber"
+                   data-onstyle="outline-primary" data-offstyle="outline-secondary"
+                   data-on="Использовать рег. номер" data-off="Использовать имена файлов"
+                   data-width="120" data-height="38" data-size="xs">
+        </div>
+    </div>
+
+    <div class="input-group mb-3 mr-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="regNumber-addon">Рег. номер</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Задать" id="regNumber" name="regNumber"
+               aria-describedby="regNumber-addon" required />
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.toggle-on').css({ 'line-height': '14.4px' });
+        $('.toggle-off').css({ 'line-height': '14.4px' });
+    });
+
+    $('#toggleRegNumber').on("change", function () {
+        let state = document.getElementById('toggleRegNumber').checked;
+
+        if (state) {
+            $('#regNumber').prop('disabled', false);
+            $('#regNumber').prop('required', 'required');
+        }
+        else {
+            $('#regNumber').prop('disabled', true);
+            $('#regNumber').removeAttr('required');
+        }
+    });
+</script>
